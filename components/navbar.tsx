@@ -1,5 +1,5 @@
 import { hasEnvVars } from '@/lib/utils';
-import { Link } from 'lucide-react';
+import Link from 'next/link';
 import React, { Suspense } from 'react'
 import { AuthButton } from './auth-button';
 import { DeployButton } from './deploy-button';
