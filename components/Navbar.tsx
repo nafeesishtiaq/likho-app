@@ -7,10 +7,10 @@ export default function Navbar(){
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/write">Write</Link>
+          <Link href="/new">Write</Link>
         </li>
         <li>
-          <Link href="/login">Sign in</Link>
+          <Link href="/signin">Sign in</Link>
         </li>
       </ul>
     </nav>
