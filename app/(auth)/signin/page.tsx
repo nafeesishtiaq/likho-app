@@ -39,7 +39,7 @@ export default function SignInPage() {
             "Signing in..."
           ) : (
             <>
-              <Image src="/google.png" alt="Google" width={18} height={18} />
+              <Image src="/google.svg" alt="Google" width={18} height={18} />
               Continue with Google
             </>
           )}
