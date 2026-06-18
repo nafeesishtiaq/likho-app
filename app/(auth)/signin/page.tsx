@@ -1,18 +1,21 @@
 "use client";
-
 import { createClient } from "@/lib/supabase/client";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function SignInPage() {
+  const [isLoading, setIsLoading] = useState(false);
   const supabase = createClient();
 
   async function signInWithGoogle() {
+    setIsLoading(true);
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
+    setIsLoading(false);
   }
 
   return (
@@ -29,10 +32,17 @@ export default function SignInPage() {
 
         <button
           onClick={signInWithGoogle}
-          className="flex items-center justify-center gap-3 w-full bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800 text-white text-sm font-medium py-3 px-4 rounded-lg transition-colors duration-200 cursor-pointer"
+          disabled={isLoading}
+          className="flex items-center justify-center gap-3 w-full bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800 text-white text-sm font-medium py-3 px-4 rounded-lg transition-colors duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <Image src="/google.png" alt="Google" width={18} height={18} />
-          Continue with Google
+          {isLoading ? (
+            <>Signing in...</>
+          ) : (
+            <>
+              <Image src="/google.png" alt="Google" width={18} height={18} />
+              Continue with Google
+            </>
+          )}
         </button>
       </div>
     </main>
