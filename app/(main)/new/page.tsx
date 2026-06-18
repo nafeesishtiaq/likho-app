@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/components/auth/AuthProvider";
 import Image from "next/image";
-import { useRef } from "react";
 export default function New() {
   const [form, setForm] = useState({ title: "", content: "" });
   const [images, setImages] = useState<File[]>([]);
@@ -12,7 +11,7 @@ export default function New() {
   const router = useRouter();
   const supabase = createClient();
   const { user } = useAuth();
-  const inputRef = useRef<HTMLInputElement>(null);
+
 
   async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
@@ -113,23 +112,16 @@ export default function New() {
             )}
 
             {images.length < 2 && (
-              <>
+              <label className="self-start text-xs text-slate-400 border border-slate-800 bg-slate-900 hover:border-slate-600 py-2 px-4 transition-colors cursor-pointer">
+                Select Images
                 <input
-                  ref={inputRef}
                   type="file"
                   accept="image/*"
                   multiple
                   onChange={handleImageChange}
                   className="hidden"
                 />
-                <button
-                  type="button"
-                  onClick={() => inputRef.current?.click()}
-                  className="self-start text-xs text-slate-400 border border-slate-800 bg-slate-900 hover:border-slate-600 py-2 px-4 transition-colors"
-                >
-                  Select Images
-                </button>
-              </>
+              </label>
             )}
           </div>
 
