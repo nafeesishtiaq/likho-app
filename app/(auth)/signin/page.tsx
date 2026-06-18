@@ -29,7 +29,7 @@ export default function SignInPage() {
 
         <button
           onClick={signInWithGoogle}
-          className="flex items-center justify-center gap-3 w-full bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800 text-white text-sm font-medium py-3 px-4 rounded-lg transition-colors duration-200"
+          className="flex items-center justify-center gap-3 w-full bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800 text-white text-sm font-medium py-3 px-4 rounded-lg transition-colors duration-200 cursor-pointer"
         >
           <Image src="/google.png" alt="Google" width={18} height={18} />
           Continue with Google

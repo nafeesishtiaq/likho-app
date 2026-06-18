@@ -19,7 +19,7 @@ export default function Navbar() {
       <div className="max-w-3xl mx-auto px-4 h-14 flex items-center justify-between">
         <Link
           href="/"
-          className="text-white text-base font-semibold tracking-tight hover:text-slate-400 transition-colors"
+          className="text-white text-base font-semibold tracking-tight hover:text-slate-400 transition-colors cursor-pointer"
         >
           Likho
         </Link>
@@ -29,13 +29,13 @@ export default function Navbar() {
             <>
               <Link
                 href="/new"
-                className="text-slate-400 text-sm tracking-wide hover:text-white transition-colors"
+                className="text-slate-400 text-sm tracking-wide hover:text-white transition-colors cursor-pointer"
               >
                 + Write
               </Link>
               <button
                 onClick={handleSignOut}
-                className="text-[11px] uppercase tracking-widest text-slate-600 hover:text-red-400 transition-colors"
+                className="text-[11px] uppercase tracking-widest text-slate-600 hover:text-red-400 transition-colors cursor-pointer"
               >
                 Sign out
               </button>
@@ -43,7 +43,7 @@ export default function Navbar() {
           ) : (
             <Link
               href="/signin"
-              className="text-slate-400 text-sm tracking-wide hover:text-white transition-colors"
+              className="text-slate-400 text-sm tracking-wide hover:text-white transition-colorsr"
             >
               Sign in
             </Link>
