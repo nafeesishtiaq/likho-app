@@ -12,7 +12,6 @@ export default function New() {
   const supabase = createClient();
   const { user } = useAuth();
 
-
   async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
     setLoading(true);
