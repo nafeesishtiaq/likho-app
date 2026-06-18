@@ -79,7 +79,7 @@ export default function New() {
             value={form.content}
             onChange={(e) => setForm({ ...form, content: e.target.value })}
             required
-            rows={10}
+            rows={6}
             className="w-full bg-slate-900 border border-slate-800 text-white text-sm leading-relaxed placeholder:text-slate-700 p-4 outline-none focus:border-slate-600 transition-colors resize-none"
           />
 
