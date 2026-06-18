@@ -8,9 +8,11 @@ export default function OnBoardingPage() {
   const [error, setError] = useState("");
   const supabase = createClient();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit() {
     setError("");
+    setIsLoading(true);
     const { data: existing } = await supabase
       .from("profiles")
       .select("username")
@@ -19,6 +21,7 @@ export default function OnBoardingPage() {
 
     if (existing) {
       setError("That username is already taken.");
+      setIsLoading(false);
       return;
     }
 
@@ -30,7 +33,7 @@ export default function OnBoardingPage() {
       id: user?.id,
       username: username,
     });
-
+    setIsLoading(false);
     router.push("/");
   }
 
@@ -60,10 +63,10 @@ export default function OnBoardingPage() {
 
           <button
             onClick={handleSubmit}
-            disabled={!username.trim()}
+            disabled={!username.trim() || isLoading}
             className="w-full bg-white rounded-lg text-slate-950 text-sm font-semibold py-3 px-4 hover:bg-slate-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
-            Continue
+            {isLoading ? "Creating user..." : "Continue"}
           </button>
         </div>
       </div>

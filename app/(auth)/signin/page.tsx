@@ -36,7 +36,7 @@ export default function SignInPage() {
           className="flex items-center justify-center gap-3 w-full bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800 text-white text-sm font-medium py-3 px-4 rounded-lg transition-colors duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? (
-            <>Signing in...</>
+            "Signing in..."
           ) : (
             <>
               <Image src="/google.png" alt="Google" width={18} height={18} />
