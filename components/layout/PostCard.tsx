@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 interface Post {
   id: string;
@@ -20,7 +21,7 @@ export default function PostCard({ post }: { post: Post }) {
   });
 
   return (
-    <article className="py-4 flex flex-col gap-4 border-b border-blue-950">
+    <article className="py-4 flex flex-col gap-4 border-b border-blue-950 max-w-2xl">
       <div className="flex flex-col gap-1">
         <h2 className="text-white text-3xl font-semibold leading-snug tracking-tight">
           {post.title}
@@ -45,10 +46,13 @@ export default function PostCard({ post }: { post: Post }) {
           }`}
         >
           {post.image_urls.slice(0, 2).map((url) => (
-            <img
+            <Image
               key={url}
               src={url}
               alt={post.title}
+              width={0}
+              height={0}
+              sizes="100vw"
               className="w-full h-auto"
             />
           ))}
