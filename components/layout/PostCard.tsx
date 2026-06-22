@@ -19,7 +19,7 @@ export default function PostCard({ post }: { post: Post }) {
     month: "short",
     day: "numeric",
   });
-
+  //need to add conversion for ios
   return (
     <article className="py-4 flex flex-col gap-4 border-b border-blue-950 max-w-2xl">
       <div className="flex flex-col gap-1">
