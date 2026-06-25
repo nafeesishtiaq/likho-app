@@ -12,7 +12,7 @@ export default async function Home() {
 
   const { data: posts } = await supabase
     .from("posts")
-    .select("*, profiles(username, avatar_url)")
+    .select("*, profiles(username, avatar_url), reactions(user_id)")
     .order("created_at", { ascending: false });
 
   return (
@@ -21,7 +21,14 @@ export default async function Home() {
         {posts && posts.length > 0 ? (
           <div className="flex flex-col gap-6">
             {posts.map((post) => (
-              <PostCard key={post.id} post={post} />
+              <PostCard
+                key={post.id}
+                post={post}
+                isReacted={post.reactions.some(
+                  (r: { user_id: string }) => r.user_id === user.id
+                )}
+                reactionCount={post.reactions.length}
+              />
             ))}
           </div>
         ) : (

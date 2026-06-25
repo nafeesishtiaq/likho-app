@@ -1,5 +1,9 @@
 "use client";
 import Image from "next/image";
+import { Heart, MessageCircle } from "lucide-react";
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { useAuth } from "../auth/AuthProvider";
 
 interface Post {
   id: string;
@@ -13,13 +17,43 @@ interface Post {
   };
 }
 
-export default function PostCard({ post }: { post: Post }) {
+export default function PostCard({
+  post,
+  isReacted,
+  reactionCount,
+}: {
+  post: Post;
+  isReacted: boolean;
+  reactionCount: number;
+}) {
   const date = new Date(post.created_at).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
-  
+  const [liked, setLiked] = useState(isReacted);
+  const [count, setCount] = useState(reactionCount);
+  const supabase = createClient();
+  const { user } = useAuth();
+
+  async function handleReaction() {
+    if (!user) return;
+    if (liked) {
+      setLiked(false);
+      setCount((prev) => prev - 1);
+      await supabase
+        .from("reactions")
+        .delete()
+        .eq("post_id", post.id)
+        .eq("user_id", user.id);
+    } else {
+      setLiked(true);
+      setCount((prev) => prev + 1);
+      await supabase
+        .from("reactions")
+        .insert({ post_id: post.id, user_id: user.id });
+    }
+  }
   return (
     <article className="py-4 flex flex-col gap-4 border-b border-blue-950 max-w-2xl">
       <div className="flex flex-col gap-1">
@@ -58,6 +92,24 @@ export default function PostCard({ post }: { post: Post }) {
           ))}
         </div>
       )}
+      <div className="flex items-center gap-5 pt-1">
+        <button
+          onClick={handleReaction}
+          className="flex items-center gap-1.5 transition-colors"
+          style={{ color: liked ? "#f87171" : "#4b5563" }}
+        >
+          <Heart
+            size={22}
+            fill={liked ? "#f87171" : "none"}
+            stroke={liked ? "#f87171" : "currentColor"}
+          />
+          <span className="text-xs">{count}</span>
+        </button>
+        <button className="flex items-center gap-1.5 text-slate-600 hover:text-slate-400 transition-colors cursor-pointer">
+          <MessageCircle size={22} />
+          <span className="text-sm">0</span>
+        </button>
+      </div>
     </article>
   );
 }
