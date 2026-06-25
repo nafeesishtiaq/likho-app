@@ -95,7 +95,7 @@ export default function PostCard({
       <div className="flex items-center gap-5 pt-1">
         <button
           onClick={handleReaction}
-          className="flex items-center gap-1.5 transition-colors"
+          className="flex items-center gap-1.5 transition-colors cursor-pointer"
           style={{ color: liked ? "#f87171" : "#4b5563" }}
         >
           <Heart
