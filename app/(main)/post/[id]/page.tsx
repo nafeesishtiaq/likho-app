@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-
+import { Heart } from "lucide-react";
 export default async function PostPage({
   params,
 }: {
@@ -64,6 +64,14 @@ export default async function PostPage({
             ))}
           </div>
         )}
+        <div className="flex items-center gap-5 py-2">
+          <button className="flex items-center gap-1.5 transition-colors cursor-pointer text-slate-600 hover:text-slate-400">
+            <Heart size={22} />
+            <span className="text-xs">0</span>
+          </button>
+         
+        </div>
+        
       </div>
     </main>
   );
