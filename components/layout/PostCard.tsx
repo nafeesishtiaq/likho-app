@@ -4,6 +4,7 @@ import { Heart, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "../auth/AuthProvider";
+import Link from "next/link";
 
 interface Post {
   id: string;
@@ -54,12 +55,14 @@ export default function PostCard({
         .insert({ post_id: post.id, user_id: user.id });
     }
   }
-  return (
-    <article className="py-4 flex flex-col gap-4 border-b border-blue-950 max-w-2xl">
+return (
+  <article className="py-4 flex flex-col gap-4 border-b border-blue-950 max-w-2xl">
+    <Link href={`/post/${post.id}`} className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <h2 className="text-white text-3xl font-semibold leading-snug tracking-tight">
+        <h2 className="text-white text-3xl font-semibold leading-snug tracking-tight hover:underline decoration-1 underline-offset-2 transition-colors">
           {post.title}
         </h2>
+
         <div className="flex items-center gap-3">
           <span className="text-xs uppercase tracking-widest text-slate-600 font-medium">
             {post.profiles.username}
@@ -92,24 +95,23 @@ export default function PostCard({
           ))}
         </div>
       )}
-      <div className="flex items-center gap-5 pt-1">
-        <button
-          onClick={handleReaction}
-          className="flex items-center gap-1.5 transition-colors cursor-pointer"
-          style={{ color: liked ? "#f87171" : "#4b5563" }}
-        >
-          <Heart
-            size={22}
-            fill={liked ? "#f87171" : "none"}
-            stroke={liked ? "#f87171" : "currentColor"}
-          />
-          <span className="text-xs">{count}</span>
-        </button>
-        <button className="flex items-center gap-1.5 text-slate-600 hover:text-slate-400 transition-colors cursor-pointer">
-          <MessageCircle size={22} />
-          <span className="text-sm">0</span>
-        </button>
-      </div>
-    </article>
-  );
+    </Link>
+
+    <div className="flex items-center gap-5 pt-1">
+      <button
+        onClick={handleReaction}
+        className={`flex items-center gap-1.5 transition-colors cursor-pointer ${
+          liked ? "text-red-400" : "text-slate-600 hover:text-slate-400"
+        }`}
+      >
+        <Heart size={22} fill={liked ? "currentColor" : "none"} />
+        <span className="text-xs">{count}</span>
+      </button>
+      <button className="flex items-center gap-1.5 text-slate-600 hover:text-slate-400 transition-colors cursor-pointer">
+        <MessageCircle size={22} />
+        <span className="text-sm">0</span>
+      </button>
+    </div>
+  </article>
+);
 }
